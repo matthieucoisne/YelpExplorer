@@ -1,0 +1,30 @@
+dependencies {
+    testImplementation Dependencies.junit
+    testImplementation Dependencies.assertj
+    testImplementation Dependencies.hamcrest
+    testImplementation Dependencies.androidx_arch_core_testing
+    testImplementation Dependencies.kotlinx_coroutines_test
+
+    testImplementation Dependencies.mockito_core
+    //http://static.javadoc.io/org.mockito/mockito-core/2.22.0/org/mockito/Mockito.html#0.2
+    testImplementation Dependencies.mockito_inline
+
+    testImplementation(Dependencies.robolectric) {
+        exclude group: "commons-logging", module: "commons-logging"
+        exclude group: "org.apache.httpcomponents", module: "httpclient"
+    }
+
+
+    // INSTRUMENTATION TESTS
+    androidTestImplementation Dependencies.androidx_annotation
+    androidTestImplementation Dependencies.androidx_test_runner
+    androidTestImplementation Dependencies.androidx_test_rules
+    androidTestImplementation Dependencies.androidx_test_espresso_core
+    androidTestImplementation Dependencies.androidx_test_espresso_idling_resource
+    androidTestImplementation(Dependencies.androidx_test_espresso_contrib) {
+        exclude group: "com.android.support", module: "appcompat-v7"
+        exclude group: "com.android.support", module: "design"
+        exclude group: "com.android.support", module: "support-v4"
+        exclude module: "recyclerview-v7"
+    }
+}
