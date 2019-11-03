@@ -1,0 +1,7 @@
+<resources>
+    <string name="settings">Settings</string>
+
+    <string name="error_io">Oops! Please check your connectivity and try again</string>
+    <string name="error_code">Oops! Something went wrong (%1$d)</string>
+    <string name="error_something_went_wrong">Oops! Something went wrong :(</string>
+</resources>

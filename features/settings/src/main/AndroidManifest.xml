@@ -1,0 +1,12 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.yelpexplorer.features.settings" >
+
+    <application android:theme="@style/AppTheme">
+        <activity android:name="com.yelpexplorer.features.settings.presentation.settings.SettingsActivity">
+            <intent-filter>
+                <action android:name="com.yelpexplorer.features.settings.open" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>

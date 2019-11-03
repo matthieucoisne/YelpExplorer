@@ -1,2 +1,5 @@
 rootProject.name='YelpExplorer'
 include ':app'
+include ':features:business'
+include ':libraries:core'
+include ':features:settings'
