@@ -9,9 +9,27 @@ data class BusinessListUiModel(
 data class BusinessUiModel(
     val id: String,
     val name: String,
-    val urlImage: String
+    val photoUrl: String,
+    val rating: Double,
+    val reviewCount: Int,
+    val address: String,
+    val price: String,
+    val categories: String
 )
 
 fun List<Business>.toBusinessListUiModel(): BusinessListUiModel {
-    return BusinessListUiModel(map { BusinessUiModel(it.id, it.name, it.urlImage) })
+    return BusinessListUiModel(
+        map {
+            BusinessUiModel(
+                id = it.id,
+                name = it.name,
+                photoUrl = it.photoUrls.firstOrNull() ?: "",
+                rating = it.rating,
+                reviewCount = it.reviewCount,
+                address = it.address,
+                price = it.price,
+                categories = it.categories.joinToString(separator = ", ")
+            )
+        }
+    )
 }

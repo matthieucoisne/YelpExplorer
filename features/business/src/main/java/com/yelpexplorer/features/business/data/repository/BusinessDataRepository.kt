@@ -18,8 +18,6 @@ class BusinessDataRepository @Inject constructor(
     private val apolloClient: ApolloClient
 ) : BusinessRepository {
 
-    // TODO rate limiter ?
-
     override suspend fun getBusinessList(term: String, location: String, sortBy: String, limit: Int): LiveData<Resource<List<Business>>> {
         val data = MutableLiveData<Resource<List<Business>>>()
         data.value = Resource.Loading()

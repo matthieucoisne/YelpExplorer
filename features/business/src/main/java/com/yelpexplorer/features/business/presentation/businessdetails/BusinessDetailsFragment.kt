@@ -8,9 +8,11 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.yelpexplorer.features.business.R
 import com.yelpexplorer.features.business.databinding.FragmentBusinessDetailsBinding
 import com.yelpexplorer.libraries.core.data.local.Const
 import com.yelpexplorer.libraries.core.injection.ViewModelFactory
+import com.yelpexplorer.libraries.core.utils.StarsProvider
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -41,7 +43,6 @@ class BusinessDetailsFragment : DaggerFragment() {
     private fun render(viewState: BusinessDetailsViewModel.ViewState) {
         when (viewState) {
             is BusinessDetailsViewModel.ViewState.ShowLoading -> {
-                showToast("Loading")
                 viewState.businessDetails?.let { showBusinessDetails(it) }
             }
             is BusinessDetailsViewModel.ViewState.ShowBusinessDetails -> showBusinessDetails(viewState.businessDetails)
@@ -49,9 +50,25 @@ class BusinessDetailsFragment : DaggerFragment() {
         }
     }
 
-    private fun showBusinessDetails(businessDetails: BusinessDetailsUiModel) {
-        binding.tvName.text = businessDetails.name
-        Glide.with(requireContext()).load(businessDetails.urlImage).into(binding.ivBusiness)
+    private fun showBusinessDetails(businessDetailsUiModel: BusinessDetailsUiModel) {
+        Glide.with(requireContext()).apply {
+            load(businessDetailsUiModel.photoUrl).into(binding.ivBusiness)
+            load(StarsProvider.getDrawableId(businessDetailsUiModel.rating)).into(binding.ivRating)
+        }
+
+        binding.tvName.text = businessDetailsUiModel.name
+        binding.tvReviewCount.text = resources.getQuantityString(
+            R.plurals.business_reviews_count,
+            businessDetailsUiModel.reviewCount,
+            businessDetailsUiModel.reviewCount
+        )
+        binding.tvPrice.text = if (businessDetailsUiModel.price.isNotBlank()) {
+            resources.getString(R.string.business_price, businessDetailsUiModel.price)
+        } else {
+            ""
+        }
+        binding.tvCategories.text = businessDetailsUiModel.categories
+        binding.tvAddress.text = businessDetailsUiModel.address
     }
 
     private fun showError(message: String) {
