@@ -4,4 +4,12 @@
     <string name="error_io">Oops! Please check your connectivity and try again</string>
     <string name="error_code">Oops! Something went wrong (%1$d)</string>
     <string name="error_something_went_wrong">Oops! Something went wrong :(</string>
+
+    <string name="business_name">%1$d. %2$s</string>
+    <string name="business_price">%1$s\u0020\u0020\u2022\u0020\u0020</string>
+
+    <plurals name="business_reviews_count">
+        <item quantity="one">%d review</item>
+        <item quantity="other">%d reviews</item>
+    </plurals>
 </resources>

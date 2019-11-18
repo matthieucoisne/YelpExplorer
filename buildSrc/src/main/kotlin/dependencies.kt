@@ -8,30 +8,31 @@ object Config {
 }
 
 object Versions {
-    val gradle_plugin_android           = "3.6.0-beta02"
-    val gradle_plugin_google_services   = "4.3.2"
-    val gradle_plugin_fabric            = "1.31.1"
+    val gradle_plugin_android           = "4.0.0-alpha03"
+    val gradle_plugin_google_services   = "4.3.3"
+    val gradle_plugin_fabric            = "1.31.2"
 
     val java                            = JavaVersion.VERSION_1_8
-    val kotlin                          = "1.3.50"
+    val kotlin                          = "1.3.60-eap-25"
     val kotlin_coroutines               = "1.3.2"
 
-    val android_material                = "1.1.0-beta01"
+    val android_material                = "1.2.0-alpha01"
     val androidx                        = "1.0.0"
-    val androidx_activity               = "1.1.0-beta01"
+    val androidx_activity               = "1.1.0-rc02"
     val androidx_appCompat              = "1.1.0"
     val androidx_constraintLayout       = "1.1.3"
-    val androidx_core                   = "1.2.0-beta01"
-    val androidx_fragment               = "1.2.0-beta01"
-    val androidx_lifecycle              = "2.2.0-beta01"
-    val androidx_lifecycle_savedState   = "1.0.0-beta01"
-    val androidx_navigation             = "2.2.0-beta01"
-    val androidx_recyclerview           = "1.1.0-beta05"
-    val androidx_room                   = "2.2.0"
+    val androidx_core                   = "1.2.0-beta02"
+    val androidx_fragment               = "1.2.0-rc02"
+    val androidx_lifecycle              = "2.2.0-rc02"
+    val androidx_lifecycle_savedState   = "1.0.0-rc02"
+    val androidx_navigation             = "2.2.0-rc02"
+    val androidx_recyclerview           = "1.1.0-rc01"
+    val androidx_room                   = "2.2.1"
     val annotation                      = "1.1.0"
     val crashlytics                     = "2.10.1"
-    val dagger                          = "2.24"
+    val dagger                          = "2.25.2"
     val glide                           = "4.10.0"
+    val graphql                         = "1.2.1"
     val gson                            = "2.8.6"
     val leakcanary                      = "1.6.3"
     val okio                            = "2.2.2"
@@ -46,7 +47,7 @@ object Versions {
     val hamcrest                        = "1.3"
     val junit                           = "4.12"
     val mockito                         = "2.25.0"
-    val robolectric                     = "4.3"
+    val robolectric                     = "4.3.1"
     val assertj                         = "1.7.1" // Do not update. It is the last version that supports android. (see assertj for android - square)
 }
 
@@ -91,6 +92,9 @@ object Dependencies {
     val dagger_android_processor = "com.google.dagger:dagger-android-processor:${Versions.dagger}"
     val dagger_android_support = "com.google.dagger:dagger-android-support:${Versions.dagger}"
     val dagger_compiler = "com.google.dagger:dagger-compiler:${Versions.dagger}"
+
+    // GRAPHQL
+    val graphql = "com.apollographql.apollo:apollo-runtime:${Versions.graphql}"
 
     // GSON
     val gson = "com.google.code.gson:gson:${Versions.gson}"
@@ -150,4 +154,5 @@ object GradlePlugins {
     val android = "com.android.tools.build:gradle:${Versions.gradle_plugin_android}"
     val androidx_navigation_safe_args = "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.androidx_navigation}"
     val google_services =  "com.google.gms:google-services:${Versions.gradle_plugin_google_services}"
+    val graphql = "com.apollographql.apollo:apollo-gradle-plugin:${Versions.graphql}"
 }

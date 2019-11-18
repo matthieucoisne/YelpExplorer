@@ -5,6 +5,7 @@ buildscript {
         google()
         jcenter()
         maven { url "https://maven.fabric.io/public" }
+        maven { url "https://dl.bintray.com/kotlin/kotlin-eap" }
     }
 
     dependencies {
@@ -13,11 +14,12 @@ buildscript {
         classpath GradlePlugins.android
         classpath GradlePlugins.androidx_navigation_safe_args
         classpath GradlePlugins.google_services
+        classpath GradlePlugins.graphql
     }
 }
 
 plugins {
-    id "com.github.ben-manes.versions" version "0.26.0"
+    id "com.github.ben-manes.versions" version "0.27.0"
 }
 
 allprojects {
@@ -25,6 +27,7 @@ allprojects {
         google()
         jcenter()
         maven { url "https://maven.fabric.io/public" }
+        maven { url "https://dl.bintray.com/kotlin/kotlin-eap" }
     }
 
     tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
@@ -36,7 +39,7 @@ allprojects {
 
 subprojects {
     afterEvaluate { project ->
-        if (project.hasProperty('android')) {
+        if (project.hasProperty("android")) {
             android {
                 buildToolsVersion Config.buildTools
                 compileSdkVersion Config.compileSdk

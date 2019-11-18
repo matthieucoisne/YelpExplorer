@@ -120,6 +120,9 @@ dependencies {
     kapt Dependencies.dagger_compiler
     kapt Dependencies.dagger_android_processor
 
+    // GRAPHQL
+    implementation Dependencies.graphql
+
     // GSON
     implementation Dependencies.gson
 

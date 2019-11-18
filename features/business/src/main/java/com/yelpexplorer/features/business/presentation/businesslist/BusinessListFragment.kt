@@ -1,7 +1,12 @@
 package com.yelpexplorer.features.business.presentation.businesslist
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
@@ -67,7 +72,6 @@ class BusinessListFragment : DaggerFragment() {
     private fun render(viewState: BusinessListViewModel.ViewState) {
         when (viewState) {
             is BusinessListViewModel.ViewState.ShowLoading -> {
-                showToast("Loading")
                 viewState.businessList?.let { showBusinessList(it) }
             }
             is BusinessListViewModel.ViewState.ShowBusinessList -> showBusinessList(viewState.businessList)
@@ -75,8 +79,8 @@ class BusinessListFragment : DaggerFragment() {
         }
     }
 
-    private fun showBusinessList(businessList: BusinessListUiModel) {
-        adapter.setData(businessList)
+    private fun showBusinessList(businessListUiModel: BusinessListUiModel) {
+        adapter.setData(businessListUiModel.businessList)
     }
 
     private fun navigateToDetails(businessId: String) {
