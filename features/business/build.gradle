@@ -57,6 +57,7 @@ dependencies {
 
     // GRAPHQL
     implementation Dependencies.graphql
+    implementation Dependencies.graphql_coroutines
 
     // GSON
     implementation Dependencies.gson
