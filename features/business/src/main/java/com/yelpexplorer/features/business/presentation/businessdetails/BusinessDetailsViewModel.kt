@@ -4,11 +4,13 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.map
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import com.yelpexplorer.features.business.R
+import com.yelpexplorer.features.business.domain.model.Business
 import com.yelpexplorer.features.business.domain.usecase.GetBusinessDetailsUseCase
 import com.yelpexplorer.libraries.core.utils.Resource
 import kotlinx.coroutines.Dispatchers
@@ -32,8 +34,10 @@ class BusinessDetailsViewModel @Inject constructor(
 
     init {
         _viewState = businessId.switchMap { businessId ->
-            liveData(context = viewModelScope.coroutineContext + Dispatchers.Main) {
-                emitSource(getBusinessDetailsUseCase.execute(businessId))
+            liveData<Resource<Business>>(context = viewModelScope.coroutineContext + Dispatchers.Main) {
+                emitSource(getBusinessDetailsUseCase.execute(
+                    businessId = businessId
+                ).asLiveData())
             }
         }.map { resource ->
             when (resource) {

@@ -4,10 +4,12 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.yelpexplorer.features.business.R
+import com.yelpexplorer.features.business.domain.model.Business
 import com.yelpexplorer.features.business.domain.usecase.GetBusinessListUseCase
 import com.yelpexplorer.libraries.core.utils.Event
 import com.yelpexplorer.libraries.core.utils.Resource
@@ -37,13 +39,13 @@ class BusinessListViewModel @Inject constructor(
         get() = _viewState
 
     init {
-        _viewState = liveData(context = viewModelScope.coroutineContext + Dispatchers.Main) {
+        _viewState = liveData<Resource<List<Business>>>(context = viewModelScope.coroutineContext + Dispatchers.Main) {
             emitSource(getBusinessListUseCase.execute(
                 term = "sushi",
                 location = "montreal",
                 sortBy = "rating",
                 limit = 20
-            ))
+            ).asLiveData())
         }.map { resource ->
             when (resource) {
                 is Resource.Loading -> ViewState.ShowLoading(resource.data?.toBusinessListUiModel())

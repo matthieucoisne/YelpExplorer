@@ -8,12 +8,12 @@ object Config {
 }
 
 object Versions {
-    val gradle_plugin_android           = "4.0.0-alpha03"
+    val gradle_plugin_android           = "4.0.0-alpha06"
     val gradle_plugin_google_services   = "4.3.3"
     val gradle_plugin_fabric            = "1.31.2"
 
     val java                            = JavaVersion.VERSION_1_8
-    val kotlin                          = "1.3.60-eap-25"
+    val kotlin                          = "1.3.61"
     val kotlin_coroutines               = "1.3.2"
 
     val android_material                = "1.2.0-alpha01"
@@ -32,7 +32,7 @@ object Versions {
     val crashlytics                     = "2.10.1"
     val dagger                          = "2.25.2"
     val glide                           = "4.10.0"
-    val graphql                         = "1.2.1"
+    val graphql                         = "1.2.2"
     val gson                            = "2.8.6"
     val leakcanary                      = "1.6.3"
     val okio                            = "2.2.2"
@@ -95,6 +95,7 @@ object Dependencies {
 
     // GRAPHQL
     val graphql = "com.apollographql.apollo:apollo-runtime:${Versions.graphql}"
+    val graphql_coroutines = "com.apollographql.apollo:apollo-coroutines-support:${Versions.graphql}"
 
     // GSON
     val gson = "com.google.code.gson:gson:${Versions.gson}"
