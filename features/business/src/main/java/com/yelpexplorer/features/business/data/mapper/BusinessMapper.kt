@@ -7,6 +7,8 @@ import com.yelpexplorer.features.business.graphql.BusinessDetailsQuery
 import com.yelpexplorer.features.business.graphql.BusinessListQuery
 import com.yelpexplorer.features.business.graphql.fragment.BusinessDetails
 import com.yelpexplorer.features.business.graphql.fragment.BusinessSummary
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 fun BusinessListQuery.Business.toDomainModel(): Business {
     return mapBusinessFrom(fragments.businessSummary)
@@ -17,6 +19,8 @@ fun BusinessDetailsQuery.Business.toDomainModel(): Business {
 }
 
 private fun mapBusinessFrom(summary: BusinessSummary, details: BusinessDetails? = null): Business {
+    val parser = SimpleDateFormat("HHmm", Locale.US)
+    val formatter = SimpleDateFormat("h:mm a", Locale.US)
     return Business(
         id = summary.id!!,
         name = summary.name!!,
@@ -25,13 +29,15 @@ private fun mapBusinessFrom(summary: BusinessSummary, details: BusinessDetails? 
         reviewCount = summary.review_count ?: 0,
         address = summary.location!!.let { "${it.address1!!}, ${it.city!!}" },
         price = summary.price ?: "",
-        categories = summary.categories!!.map { it!!.title!! },
+        categories = summary.categories!!.mapNotNull { it?.title },
         phone = details?.display_phone,
         hours = details?.hours?.get(0)?.open?.groupBy {
             it!!.day!!
         }?.mapValues {
             it.value.map { open ->
-                "${open!!.start!!} - ${open.end!!}"
+                val start = formatter.format(parser.parse(open!!.start!!)!!).toLowerCase(Locale.US)
+                val end = formatter.format(parser.parse(open.end!!)!!).toLowerCase(Locale.US)
+                "$start - $end"
             }
         },
         reviews = details?.reviews?.map {

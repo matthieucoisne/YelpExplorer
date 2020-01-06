@@ -79,8 +79,8 @@ class BusinessListFragment : DaggerFragment() {
         }
     }
 
-    private fun showBusinessList(businessListUiModel: BusinessListUiModel) {
-        adapter.setData(businessListUiModel.businessList)
+    private fun showBusinessList(uiModel: BusinessListUiModel) {
+        adapter.setData(uiModel.businessList)
     }
 
     private fun navigateToDetails(businessId: String) {

@@ -20,30 +20,30 @@ class BusinessListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.apply {
-            val context = itemView.context
-            val business = data[position]
+        val context = holder.itemView.context
+        val business = data[position]
 
+        holder.binding.apply {
             Glide.with(context).apply {
-                load(business.photoUrl).into(binding.ivBusiness)
-                load(StarsProvider.getDrawableId(business.rating)).into(binding.ivRating)
+                load(business.photoUrl).into(ivBusiness)
+                load(StarsProvider.getDrawableId(business.rating)).into(ivRating)
             }
 
-            binding.tvName.text = context.getString(R.string.business_name, position + 1, business.name)
-            binding.tvReviewCount.text = context.resources.getQuantityString(
+            tvName.text = context.getString(R.string.business_name, position + 1, business.name)
+            tvReviewCount.text = context.resources.getQuantityString(
                 R.plurals.business_reviews_count,
                 business.reviewCount,
                 business.reviewCount
             )
-            binding.tvPrice.text = if (business.price.isNotBlank()) {
+            tvPrice.text = if (business.price.isNotBlank()) {
                 context.resources.getString(R.string.business_price, business.price)
             } else {
                 ""
             }
-            binding.tvCategories.text = business.categories
-            binding.tvAddress.text = business.address
+            tvCategories.text = business.categories
+            tvAddress.text = business.address
 
-            binding.root.setOnClickListener {
+            root.setOnClickListener {
                 listener(business)
             }
         }
