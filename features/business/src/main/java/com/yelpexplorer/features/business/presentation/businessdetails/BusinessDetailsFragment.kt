@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +20,7 @@ import javax.inject.Inject
 class BusinessDetailsFragment : DaggerFragment() {
 
     private lateinit var binding: FragmentBusinessDetailsBinding
+    private lateinit var openingHoursTextViews: List<TextView>
 
     private lateinit var viewModel: BusinessDetailsViewModel
 
@@ -27,9 +29,11 @@ class BusinessDetailsFragment : DaggerFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentBusinessDetailsBinding.inflate(inflater, container, false)
+        binding.apply {
+            openingHoursTextViews = listOf(tvMondayHours, tvTuesdayHours, tvWednesdayHours, tvThursdayHours, tvFridayHours, tvSaturdayHours, tvSundayHours)
+        }
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(BusinessDetailsViewModel::class.java)
-
         viewModel.viewState.observe(viewLifecycleOwner, Observer {
             render(it)
         })
@@ -50,25 +54,32 @@ class BusinessDetailsFragment : DaggerFragment() {
         }
     }
 
-    private fun showBusinessDetails(businessDetailsUiModel: BusinessDetailsUiModel) {
-        Glide.with(requireContext()).apply {
-            load(businessDetailsUiModel.photoUrl).into(binding.ivBusiness)
-            load(StarsProvider.getDrawableId(businessDetailsUiModel.rating)).into(binding.ivRating)
-        }
+    private fun showBusinessDetails(uiModel: BusinessDetailsUiModel) {
+        binding.apply {
+            Glide.with(requireContext()).apply {
+                load(uiModel.photoUrl).into(ivBusiness)
+                load(StarsProvider.getDrawableId(uiModel.rating)).into(ivRating)
+            }
 
-        binding.tvName.text = businessDetailsUiModel.name
-        binding.tvReviewCount.text = resources.getQuantityString(
-            R.plurals.business_reviews_count,
-            businessDetailsUiModel.reviewCount,
-            businessDetailsUiModel.reviewCount
-        )
-        binding.tvPrice.text = if (businessDetailsUiModel.price.isNotBlank()) {
-            resources.getString(R.string.business_price, businessDetailsUiModel.price)
-        } else {
-            ""
+            tvName.text = uiModel.name
+            tvReviewCount.text = resources.getQuantityString(
+                R.plurals.business_reviews_count,
+                uiModel.reviewCount,
+                uiModel.reviewCount
+            )
+            tvPrice.text = if (uiModel.price.isNotBlank()) {
+                getString(R.string.business_price, uiModel.price)
+            } else {
+                ""
+            }
+            tvCategories.text = uiModel.categories
+            tvAddress.text = uiModel.address
+
+            layoutOpeningHours.visibility = View.VISIBLE
+            openingHoursTextViews.forEachIndexed { i, tv ->
+                tv.text = uiModel.openingHours[i] ?: getString(R.string.closed)
+            }
         }
-        binding.tvCategories.text = businessDetailsUiModel.categories
-        binding.tvAddress.text = businessDetailsUiModel.address
     }
 
     private fun showError(message: String) {

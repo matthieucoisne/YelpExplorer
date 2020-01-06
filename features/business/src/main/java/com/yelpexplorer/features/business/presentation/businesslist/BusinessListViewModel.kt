@@ -40,12 +40,14 @@ class BusinessListViewModel @Inject constructor(
 
     init {
         _viewState = liveData<Resource<List<Business>>>(context = viewModelScope.coroutineContext + Dispatchers.Main) {
-            emitSource(getBusinessListUseCase.execute(
-                term = "sushi",
-                location = "montreal",
-                sortBy = "rating",
-                limit = 20
-            ).asLiveData())
+            emitSource(
+                getBusinessListUseCase.execute(
+                    term = "sushi",
+                    location = "montreal",
+                    sortBy = "rating",
+                    limit = 20
+                ).asLiveData()
+            )
         }.map { resource ->
             when (resource) {
                 is Resource.Loading -> ViewState.ShowLoading(resource.data?.toBusinessListUiModel())

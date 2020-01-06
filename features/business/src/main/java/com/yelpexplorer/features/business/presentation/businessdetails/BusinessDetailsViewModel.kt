@@ -35,9 +35,11 @@ class BusinessDetailsViewModel @Inject constructor(
     init {
         _viewState = businessId.switchMap { businessId ->
             liveData<Resource<Business>>(context = viewModelScope.coroutineContext + Dispatchers.Main) {
-                emitSource(getBusinessDetailsUseCase.execute(
-                    businessId = businessId
-                ).asLiveData())
+                emitSource(
+                    getBusinessDetailsUseCase.execute(
+                        businessId = businessId
+                    ).asLiveData()
+                )
             }
         }.map { resource ->
             when (resource) {

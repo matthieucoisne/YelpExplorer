@@ -8,6 +8,17 @@
     <string name="business_name">%1$d. %2$s</string>
     <string name="business_price">%1$s\u0020\u0020\u2022\u0020\u0020</string>
 
+    <string name="opening_hours">Opening Hours</string>
+    <string name="closed">Closed</string>
+
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+
     <plurals name="business_reviews_count">
         <item quantity="one">%d review</item>
         <item quantity="other">%d reviews</item>

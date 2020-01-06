@@ -13,11 +13,18 @@ data class BusinessDetailsUiModel(
     val price: String,
     val categories: String,
     val phone: String,
-    val hours: Map<Int, List<String>>,
+    val openingHours: Map<Int, String>,
     val reviews: List<Review>
 )
 
 fun Business.toBusinessDetailsUiModel(): BusinessDetailsUiModel {
+    val openingHours = mutableMapOf<Int, String>()
+    for (i in 0..6) {
+        hours!![i]?.let {
+            openingHours[i] = it.joinToString(separator = "\n")
+        }
+    }
+
     return BusinessDetailsUiModel(
         id = id,
         name = name,
@@ -28,7 +35,7 @@ fun Business.toBusinessDetailsUiModel(): BusinessDetailsUiModel {
         price = price,
         categories = categories.joinToString(separator = ", "),
         phone = phone ?: "",
-        hours = hours ?: emptyMap(), // TODO
+        openingHours = openingHours,
         reviews = reviews ?: emptyList()
     )
 }
