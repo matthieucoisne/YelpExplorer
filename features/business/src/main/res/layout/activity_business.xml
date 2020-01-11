@@ -17,7 +17,7 @@
         app:title="@string/app_name" />
 
     <fragment
-        android:id="@+id/activity_business_list_navHostFragment"
+        android:id="@+id/activity_business_navHostFragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"

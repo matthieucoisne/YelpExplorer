@@ -4,8 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.yelpexplorer.features.business.R
-import com.yelpexplorer.features.business.databinding.ActivityBusinessListItemBinding
+import com.yelpexplorer.features.business.databinding.FragmentBusinessListItemBinding
 import com.yelpexplorer.libraries.core.utils.StarsProvider
 
 class BusinessListAdapter(
@@ -13,9 +14,10 @@ class BusinessListAdapter(
 ) : RecyclerView.Adapter<BusinessListAdapter.ViewHolder>() {
 
     private val data = mutableListOf<BusinessUiModel>()
+    private val crossFadeTransition = DrawableTransitionOptions.withCrossFade()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ActivityBusinessListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = FragmentBusinessListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -25,8 +27,12 @@ class BusinessListAdapter(
 
         holder.binding.apply {
             Glide.with(context).apply {
-                load(business.photoUrl).into(ivBusiness)
-                load(StarsProvider.getDrawableId(business.rating)).into(ivRating)
+                load(business.photoUrl)
+                    .transition(crossFadeTransition)
+                    .error(R.drawable.placeholder_business_list)
+                    .into(ivBusiness)
+                load(StarsProvider.getDrawableId(business.rating))
+                    .into(ivRating)
             }
 
             tvName.text = context.getString(R.string.business_name, position + 1, business.name)
@@ -58,6 +64,6 @@ class BusinessListAdapter(
     }
 
     class ViewHolder(
-        val binding: ActivityBusinessListItemBinding
+        val binding: FragmentBusinessListItemBinding
     ) : RecyclerView.ViewHolder(binding.root)
 }

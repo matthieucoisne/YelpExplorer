@@ -1,7 +1,7 @@
 package com.yelpexplorer.injection
 
+import com.yelpexplorer.features.business.presentation.BusinessActivity
 import com.yelpexplorer.features.business.presentation.businessdetails.BusinessDetailsFragment
-import com.yelpexplorer.features.business.presentation.businesslist.BusinessListActivity
 import com.yelpexplorer.features.business.presentation.businesslist.BusinessListFragment
 import com.yelpexplorer.features.settings.presentation.settings.SettingsActivity
 import dagger.Module
@@ -11,7 +11,7 @@ import dagger.android.ContributesAndroidInjector
 abstract class ActivityBuilder {
 
     @ContributesAndroidInjector
-    internal abstract fun contributeBusinessListActivity(): BusinessListActivity
+    internal abstract fun contributeBusinessActivity(): BusinessActivity
 
     @ContributesAndroidInjector
     internal abstract fun contributeBusinessListFragment(): BusinessListFragment
