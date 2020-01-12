@@ -14,7 +14,15 @@ data class BusinessDetailsUiModel(
     val categories: String,
     val phone: String,
     val openingHours: Map<Int, String>,
-    val reviews: List<Review>
+    val reviews: List<ReviewUiModel>
+)
+
+data class ReviewUiModel(
+    val userName: String,
+    val userImageUrl: String?,
+    val text: String,
+    val rating: Double,
+    val timeCreated: String
 )
 
 fun Business.toBusinessDetailsUiModel(): BusinessDetailsUiModel {
@@ -36,6 +44,16 @@ fun Business.toBusinessDetailsUiModel(): BusinessDetailsUiModel {
         categories = categories.joinToString(separator = ", "),
         phone = phone ?: "",
         openingHours = openingHours,
-        reviews = reviews ?: emptyList()
+        reviews = reviews?.map { it.toReviewUiModel() } ?: emptyList()
+    )
+}
+
+private fun Review.toReviewUiModel(): ReviewUiModel {
+    return ReviewUiModel(
+        userName = user.name,
+        userImageUrl = user.imageUrl,
+        text = text,
+        rating = rating.toDouble(),
+        timeCreated = timeCreated
     )
 }

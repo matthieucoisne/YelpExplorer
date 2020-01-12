@@ -8,7 +8,7 @@ object Config {
 }
 
 object Versions {
-    val gradle_plugin_android           = "4.0.0-alpha07"
+    val gradle_plugin_android           = "4.0.0-alpha08"
     val gradle_plugin_google_services   = "4.3.3"
     val gradle_plugin_fabric            = "1.31.2"
 

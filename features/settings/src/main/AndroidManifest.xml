@@ -2,7 +2,7 @@
     package="com.yelpexplorer.features.settings" >
 
     <application android:theme="@style/AppTheme">
-        <activity android:name="com.yelpexplorer.features.settings.presentation.settings.SettingsActivity">
+        <activity android:name=".presentation.settings.SettingsActivity">
             <intent-filter>
                 <action android:name="com.yelpexplorer.features.settings.open" />
                 <category android:name="android.intent.category.DEFAULT" />

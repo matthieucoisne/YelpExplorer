@@ -7,6 +7,10 @@ object Const {
 
     const val KEY_BUSINESS_ID = "com.yelpexplorer.businessId"
 
+    const val PATTERN_DATE_TIME = "yyyy-MM-dd HH:mm:ss"
+    const val PATTERN_DATE = "M/d/yyyy"
+    const val PATTERN_HOUR_MINUTE = "HHmm"
+    const val PATTERN_TIME = "h:mm a"
 
     // DEBUG
     const val BEHAVIOR_DELAY_MILLIS: Long = 0

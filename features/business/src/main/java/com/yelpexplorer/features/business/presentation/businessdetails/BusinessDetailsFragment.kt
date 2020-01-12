@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.yelpexplorer.features.business.R
 import com.yelpexplorer.features.business.databinding.FragmentBusinessDetailsBinding
 import com.yelpexplorer.libraries.core.data.local.Const
@@ -57,8 +59,12 @@ class BusinessDetailsFragment : DaggerFragment() {
     private fun showBusinessDetails(uiModel: BusinessDetailsUiModel) {
         binding.apply {
             Glide.with(requireContext()).apply {
-                load(uiModel.photoUrl).into(ivBusiness)
-                load(StarsProvider.getDrawableId(uiModel.rating)).into(ivRating)
+                load(uiModel.photoUrl)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .error(R.drawable.placeholder_business_details)
+                    .into(ivBusiness)
+                load(StarsProvider.getDrawableId(uiModel.rating))
+                    .into(ivRating)
             }
 
             tvName.text = uiModel.name
@@ -75,10 +81,13 @@ class BusinessDetailsFragment : DaggerFragment() {
             tvCategories.text = uiModel.categories
             tvAddress.text = uiModel.address
 
-            layoutOpeningHours.visibility = View.VISIBLE
+            layoutOpeningHours.isVisible = true
             openingHoursTextViews.forEachIndexed { i, tv ->
                 tv.text = uiModel.openingHours[i] ?: getString(R.string.closed)
             }
+
+            layoutReviews.isVisible = true
+            rvReviews.adapter = BusinessDetailsReviewListAdapter(uiModel.reviews)
         }
     }
 
