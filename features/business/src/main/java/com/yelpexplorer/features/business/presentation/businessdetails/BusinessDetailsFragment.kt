@@ -7,27 +7,29 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.yelpexplorer.features.business.R
 import com.yelpexplorer.features.business.databinding.FragmentBusinessDetailsBinding
 import com.yelpexplorer.libraries.core.data.local.Const
-import com.yelpexplorer.libraries.core.injection.ViewModelFactory
+import com.yelpexplorer.libraries.core.injection.scope.ApplicationScope
+import com.yelpexplorer.libraries.core.injection.scope.ViewModelScope
 import com.yelpexplorer.libraries.core.utils.StarsProvider
-import dagger.android.support.DaggerFragment
+import toothpick.Scope
+import toothpick.ktp.KTP
+import toothpick.smoothie.lifecycle.closeOnDestroy
+import toothpick.smoothie.viewmodel.closeOnViewModelCleared
+import toothpick.smoothie.viewmodel.installViewModelBinding
 import javax.inject.Inject
 
-class BusinessDetailsFragment : DaggerFragment() {
+class BusinessDetailsFragment : Fragment() {
 
     private lateinit var binding: FragmentBusinessDetailsBinding
     private lateinit var openingHoursTextViews: List<TextView>
 
-    private lateinit var viewModel: BusinessDetailsViewModel
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+    @Inject lateinit var viewModel: BusinessDetailsViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentBusinessDetailsBinding.inflate(inflater, container, false)
@@ -35,7 +37,14 @@ class BusinessDetailsFragment : DaggerFragment() {
             openingHoursTextViews = listOf(tvMondayHours, tvTuesdayHours, tvWednesdayHours, tvThursdayHours, tvFridayHours, tvSaturdayHours, tvSundayHours)
         }
 
-        viewModel = ViewModelProvider(this, viewModelFactory).get(BusinessDetailsViewModel::class.java)
+        KTP.openScopes(ApplicationScope::class)
+            .openSubScope(ViewModelScope::class) { scope: Scope ->
+                scope.installViewModelBinding<BusinessDetailsViewModel>(this)
+                    .closeOnViewModelCleared(this)
+            }
+            .closeOnDestroy(this)
+            .inject(this)
+
         viewModel.viewState.observe(viewLifecycleOwner, Observer {
             render(it)
         })

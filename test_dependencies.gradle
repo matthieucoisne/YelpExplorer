@@ -4,6 +4,7 @@ dependencies {
     testImplementation Dependencies.hamcrest
     testImplementation Dependencies.androidx_arch_core_testing
     testImplementation Dependencies.kotlinx_coroutines_test
+    testImplementation Dependencies.toothpick_testing
 
     testImplementation Dependencies.mockito_core
     //http://static.javadoc.io/org.mockito/mockito-core/2.22.0/org/mockito/Mockito.html#0.2

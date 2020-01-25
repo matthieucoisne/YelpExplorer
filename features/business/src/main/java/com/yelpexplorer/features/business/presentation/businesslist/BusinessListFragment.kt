@@ -9,32 +9,42 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.yelpexplorer.features.business.R
 import com.yelpexplorer.features.business.databinding.FragmentBusinessListBinding
 import com.yelpexplorer.libraries.core.data.local.Const
-import com.yelpexplorer.libraries.core.injection.ViewModelFactory
+import com.yelpexplorer.libraries.core.injection.scope.ApplicationScope
+import com.yelpexplorer.libraries.core.injection.scope.ViewModelScope
 import com.yelpexplorer.libraries.core.utils.EventObserver
 import com.yelpexplorer.libraries.core.utils.Router
-import dagger.android.support.DaggerFragment
+import toothpick.Scope
+import toothpick.ktp.KTP
+import toothpick.smoothie.lifecycle.closeOnDestroy
+import toothpick.smoothie.viewmodel.closeOnViewModelCleared
+import toothpick.smoothie.viewmodel.installViewModelBinding
 import javax.inject.Inject
 
-class BusinessListFragment : DaggerFragment() {
+class BusinessListFragment : Fragment() {
 
     private lateinit var adapter: BusinessListAdapter
     private lateinit var binding: FragmentBusinessListBinding
-    private lateinit var viewModel: BusinessListViewModel
 
-    @Inject lateinit var viewModelFactory: ViewModelFactory
+    @Inject lateinit var viewModel: BusinessListViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentBusinessListBinding.inflate(inflater)
 
         setHasOptionsMenu(true)
 
-        viewModel = ViewModelProvider(this, viewModelFactory).get(BusinessListViewModel::class.java)
+        KTP.openScopes(ApplicationScope::class)
+            .openSubScope(ViewModelScope::class) { scope: Scope ->
+                scope.installViewModelBinding<BusinessListViewModel>(this)
+                    .closeOnViewModelCleared(this)
+            }
+            .closeOnDestroy(this)
+            .inject(this)
 
         viewModel.viewAction.observe(viewLifecycleOwner, EventObserver {
             when (it) {

@@ -16,9 +16,9 @@ import com.yelpexplorer.libraries.core.utils.Resource
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
-class BusinessListViewModel @Inject constructor(
-    private val getBusinessListUseCase: GetBusinessListUseCase
-) : ViewModel() {
+class BusinessListViewModel : ViewModel() {
+
+    @Inject lateinit var getBusinessListUseCase: GetBusinessListUseCase
 
     sealed class ViewAction {
         data class NavigateToDetails(val businessId: String) : ViewAction()

@@ -70,6 +70,13 @@ subprojects {
                     targetCompatibility Versions.java
                 }
 
+                lintOptions {
+                    abortOnError true
+                    xmlReport false
+                    htmlReport true
+                    warning "InvalidPackage"
+                }
+
                 viewBinding {
                     enabled = true
                 }

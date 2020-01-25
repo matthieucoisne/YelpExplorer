@@ -8,7 +8,7 @@ object Config {
 }
 
 object Versions {
-    val gradle_plugin_android           = "4.0.0-alpha08"
+    val gradle_plugin_android           = "4.0.0-alpha09"
     val gradle_plugin_google_services   = "4.3.3"
     val gradle_plugin_fabric            = "1.31.2"
 
@@ -30,7 +30,6 @@ object Versions {
     val androidx_room                   = "2.2.3"
     val annotation                      = "1.1.0"
     val crashlytics                     = "2.10.1"
-    val dagger                          = "2.25.4"
     val glide                           = "4.10.0"
     val graphql                         = "1.2.2"
     val gson                            = "2.8.6"
@@ -39,6 +38,7 @@ object Versions {
     val okhttp                          = "4.3.0"
     val retrofit                        = "2.7.1"
     val timber                          = "4.7.1"
+    val toothpick                       = "3.1.0"
 
     // TESTING
     val androidx_test                   = "1.3.0-alpha03"
@@ -86,12 +86,13 @@ object Dependencies {
     val androidx_room_compiler = "androidx.room:room-compiler:${Versions.androidx_room}"
     val androidx_room_testing = "androidx.room:room-testing:${Versions.androidx_room}"
 
-    // DAGGER
-    val dagger = "com.google.dagger:dagger:${Versions.dagger}"
-    val dagger_android = "com.google.dagger:dagger-android:${Versions.dagger}"
-    val dagger_android_processor = "com.google.dagger:dagger-android-processor:${Versions.dagger}"
-    val dagger_android_support = "com.google.dagger:dagger-android-support:${Versions.dagger}"
-    val dagger_compiler = "com.google.dagger:dagger-compiler:${Versions.dagger}"
+    // TOOTHPICK
+    val toothpick = "com.github.stephanenicolas.toothpick:ktp:${Versions.toothpick}"
+    val toothpick_smoothie_androidx = "com.github.stephanenicolas.toothpick:smoothie-androidx:${Versions.toothpick}"
+    val toothpick_smoothie_lifecycle = "com.github.stephanenicolas.toothpick:smoothie-lifecycle-ktp:${Versions.toothpick}"
+    val toothpick_smoothie_lifecycle_viewmodel = "com.github.stephanenicolas.toothpick:smoothie-lifecycle-viewmodel-ktp:${Versions.toothpick}"
+    val toothpick_compiler = "com.github.stephanenicolas.toothpick:toothpick-compiler:${Versions.toothpick}"
+    val toothpick_testing = "com.github.stephanenicolas.toothpick:toothpick-testing-junit5:${Versions.toothpick}"
 
     // GRAPHQL
     val graphql = "com.apollographql.apollo:apollo-runtime:${Versions.graphql}"
