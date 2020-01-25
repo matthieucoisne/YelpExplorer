@@ -2,12 +2,12 @@ package com.yelpexplorer.features.settings.presentation.settings
 
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import com.yelpexplorer.features.settings.R
 import com.yelpexplorer.features.settings.databinding.ActivitySettingsBinding
 import com.yelpexplorer.libraries.core.BuildConfig
-import dagger.android.support.DaggerAppCompatActivity
 
-class SettingsActivity : DaggerAppCompatActivity() {
+class SettingsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySettingsBinding
 
