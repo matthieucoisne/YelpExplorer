@@ -2,9 +2,6 @@ package com.yelpexplorer.injection
 
 import android.app.Application
 import com.apollographql.apollo.ApolloClient
-import com.google.gson.FieldNamingPolicy
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import com.yelpexplorer.features.business.data.repository.BusinessDataRepository
 import com.yelpexplorer.features.business.domain.repository.BusinessRepository
 import com.yelpexplorer.libraries.core.data.local.Const
@@ -12,8 +9,6 @@ import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import toothpick.ProvidesSingletonInScope
 import toothpick.config.Module
 import toothpick.ktp.binding.bind
@@ -25,8 +20,6 @@ class AppModule : Module() {
     init {
         bind<Cache>().toProvider(OkHttpCacheProvider::class)
         bind<OkHttpClient>().toProvider(OkHttpClientProvider::class)
-        bind<Gson>().toProvider(GsonProvider::class)
-        bind<Retrofit>().toProvider(RetrofitProvider::class)
         bind<ApolloClient>().toProvider(ApolloClientProvider::class)
 
         bind<BusinessRepository>().toClass(BusinessDataRepository::class)
@@ -72,34 +65,6 @@ class OkHttpClientProvider @Inject constructor(
             .build()
     }
 }
-
-@Singleton
-@ProvidesSingletonInScope
-class GsonProvider : Provider<Gson> {
-
-    override fun get(): Gson {
-        val gsonBuilder = GsonBuilder()
-        gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-        return gsonBuilder.create()
-    }
-}
-
-@Singleton
-@ProvidesSingletonInScope
-class RetrofitProvider @Inject constructor(
-    private val okHttpClient: OkHttpClient,
-    private val gson: Gson
-) : Provider<Retrofit> {
-
-    override fun get(): Retrofit {
-        return Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .baseUrl(Const.URL_BASE)
-            .client(okHttpClient)
-            .build()
-    }
-}
-
 
 @Singleton
 @ProvidesSingletonInScope

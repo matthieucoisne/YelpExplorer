@@ -16,7 +16,6 @@ import com.yelpexplorer.features.business.R
 import com.yelpexplorer.features.business.databinding.FragmentBusinessListBinding
 import com.yelpexplorer.libraries.core.data.local.Const
 import com.yelpexplorer.libraries.core.injection.scope.ApplicationScope
-import com.yelpexplorer.libraries.core.injection.scope.ViewModelScope
 import com.yelpexplorer.libraries.core.utils.EventObserver
 import com.yelpexplorer.libraries.core.utils.Router
 import toothpick.Scope
@@ -39,7 +38,7 @@ class BusinessListFragment : Fragment() {
         setHasOptionsMenu(true)
 
         KTP.openScopes(ApplicationScope::class)
-            .openSubScope(ViewModelScope::class) { scope: Scope ->
+            .openSubScope(BusinessListViewModel::class) { scope: Scope ->
                 scope.installViewModelBinding<BusinessListViewModel>(this)
                     .closeOnViewModelCleared(this)
             }

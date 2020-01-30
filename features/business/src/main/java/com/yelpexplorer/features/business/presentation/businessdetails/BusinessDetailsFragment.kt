@@ -15,7 +15,6 @@ import com.yelpexplorer.features.business.R
 import com.yelpexplorer.features.business.databinding.FragmentBusinessDetailsBinding
 import com.yelpexplorer.libraries.core.data.local.Const
 import com.yelpexplorer.libraries.core.injection.scope.ApplicationScope
-import com.yelpexplorer.libraries.core.injection.scope.ViewModelScope
 import com.yelpexplorer.libraries.core.utils.StarsProvider
 import toothpick.Scope
 import toothpick.ktp.KTP
@@ -38,7 +37,7 @@ class BusinessDetailsFragment : Fragment() {
         }
 
         KTP.openScopes(ApplicationScope::class)
-            .openSubScope(ViewModelScope::class) { scope: Scope ->
+            .openSubScope(BusinessDetailsViewModel::class) { scope: Scope ->
                 scope.installViewModelBinding<BusinessDetailsViewModel>(this)
                     .closeOnViewModelCleared(this)
             }
