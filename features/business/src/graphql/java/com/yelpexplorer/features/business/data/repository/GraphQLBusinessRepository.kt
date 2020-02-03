@@ -15,7 +15,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @ApplicationScope @Singleton
-class BusinessDataRepository @Inject constructor(
+class GraphQLBusinessRepository @Inject constructor(
     private val apolloClient: ApolloClient
 ) : BusinessRepository {
 

@@ -1,9 +1,6 @@
 package com.yelpexplorer.injection
 
 import android.app.Application
-import com.apollographql.apollo.ApolloClient
-import com.yelpexplorer.features.business.data.repository.BusinessDataRepository
-import com.yelpexplorer.features.business.domain.repository.BusinessRepository
 import com.yelpexplorer.libraries.core.data.local.Const
 import okhttp3.Cache
 import okhttp3.Interceptor
@@ -20,9 +17,6 @@ class AppModule : Module() {
     init {
         bind<Cache>().toProvider(OkHttpCacheProvider::class)
         bind<OkHttpClient>().toProvider(OkHttpClientProvider::class)
-        bind<ApolloClient>().toProvider(ApolloClientProvider::class)
-
-        bind<BusinessRepository>().toClass(BusinessDataRepository::class)
     }
 }
 
@@ -53,7 +47,7 @@ class OkHttpClientProvider @Inject constructor(
             val builder = original.newBuilder().method(original.method, original.body)
             builder.addHeader(
                 name = "Authorization",
-                value = "Bearer ${Const.AUTH_TOKEN}"
+                value = "Bearer ${Const.API_KEY}"
             )
             chain.proceed(builder.build())
         }
@@ -62,20 +56,6 @@ class OkHttpClientProvider @Inject constructor(
             .cache(cache)
             .addInterceptor(loggingInterceptor)
             .addInterceptor(headerInterceptor)
-            .build()
-    }
-}
-
-@Singleton
-@ProvidesSingletonInScope
-class ApolloClientProvider @Inject constructor(
-    private val okHttpClient: OkHttpClient
-) : Provider<ApolloClient> {
-
-    override fun get(): ApolloClient {
-        return ApolloClient.builder()
-            .serverUrl(Const.URL_BASE)
-            .okHttpClient(okHttpClient)
             .build()
     }
 }

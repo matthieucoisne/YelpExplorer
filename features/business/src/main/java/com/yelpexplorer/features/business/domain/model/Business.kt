@@ -3,7 +3,7 @@ package com.yelpexplorer.features.business.domain.model
 data class Business(
     val id: String,
     val name: String,
-    val photoUrls: List<String>,
+    val photoUrl: String,
     val rating: Double,
     val reviewCount: Int,
     val address: String,

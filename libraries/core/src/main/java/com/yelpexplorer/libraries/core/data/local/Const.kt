@@ -2,8 +2,11 @@ package com.yelpexplorer.libraries.core.data.local
 
 object Const {
 
-    const val URL_BASE = "https://api.yelp.com/v3/graphql"
-    const val AUTH_TOKEN = "YOUR_API_KEY"
+    const val URL_GRAPHQL = "https://api.yelp.com/v3/graphql"
+    const val URL_REST = "https://api.yelp.com/v3/"
+
+    const val API_KEY = "YOUR_API_KEY"
+
 
     const val KEY_BUSINESS_ID = "com.yelpexplorer.businessId"
 

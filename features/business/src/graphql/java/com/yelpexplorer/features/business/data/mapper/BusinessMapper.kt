@@ -28,7 +28,7 @@ private fun mapBusinessFrom(summary: BusinessSummary, details: BusinessDetails? 
     return Business(
         id = summary.id!!,
         name = summary.name!!,
-        photoUrls = summary.photos!!.mapNotNull { it },
+        photoUrl = summary.photos!!.mapNotNull { it }.firstOrNull() ?: "",
         rating = summary.rating ?: 0.0,
         reviewCount = summary.review_count ?: 0,
         address = summary.location!!.let { "${it.address1!!}, ${it.city!!}" },

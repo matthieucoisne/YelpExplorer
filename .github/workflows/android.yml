@@ -17,10 +17,10 @@ jobs:
           java-version: 1.8
 
       - name: Build
-        run: ./gradlew clean assembleDevDebug
+        run: ./gradlew clean assembleDebug
 
       - name: Lint Check
-        run: ./gradlew lintDevDebug
+        run: ./gradlew lintGraphqlDebug lintRestDebug
 
       - name: Unit Tests
-        run: ./gradlew testDevDebugUnitTest
+        run: ./gradlew testGraphqlDebugUnitTest testRestDebugUnitTest

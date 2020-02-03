@@ -54,7 +54,14 @@ android {
     }
 
     productFlavors {
-        dev {
+        graphql {
+            dimension "server"
+            def versionBuild = getCommitCount()
+            versionCode 1
+            versionName "$productVersion.$versionBuild"
+            multiDexEnabled true
+        }
+        rest {
             dimension "server"
             def versionBuild = getCommitCount()
             versionCode 1
@@ -145,5 +152,3 @@ dependencies {
     // LEAK CANARY
     debugImplementation Dependencies.leakcanary
 }
-
-apply plugin: "com.google.gms.google-services"

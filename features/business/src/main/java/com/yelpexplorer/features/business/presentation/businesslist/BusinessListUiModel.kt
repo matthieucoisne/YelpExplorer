@@ -23,7 +23,7 @@ fun List<Business>.toBusinessListUiModel(): BusinessListUiModel {
             BusinessUiModel(
                 id = it.id,
                 name = it.name,
-                photoUrl = it.photoUrls.firstOrNull() ?: "",
+                photoUrl = it.photoUrl,
                 rating = it.rating,
                 reviewCount = it.reviewCount,
                 address = it.address,

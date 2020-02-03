@@ -52,16 +52,14 @@ subprojects {
 
                 flavorDimensions "server"
                 productFlavors {
-                    dev
+                    graphql
+                    rest
                 }
 
                 variantFilter { variant ->
                     def buildType = variant.buildType.name
-                    def flavor = variant.flavors.get(0).name
                     if (buildType == "release") {
-                        if (flavor == "dev") {
-                            variant.setIgnore(true)
-                        }
+                        variant.setIgnore(true)
                     }
                 }
 
