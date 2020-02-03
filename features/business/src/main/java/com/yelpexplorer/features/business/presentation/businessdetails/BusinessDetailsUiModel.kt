@@ -36,7 +36,7 @@ fun Business.toBusinessDetailsUiModel(): BusinessDetailsUiModel {
     return BusinessDetailsUiModel(
         id = id,
         name = name,
-        photoUrl = photoUrls.firstOrNull() ?: "",
+        photoUrl = photoUrl,
         rating = rating,
         reviewCount = reviewCount,
         address = address,
