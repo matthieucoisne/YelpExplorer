@@ -18,7 +18,6 @@ import com.yelpexplorer.libraries.core.injection.scope.ApplicationScope
 import com.yelpexplorer.libraries.core.utils.StarsProvider
 import toothpick.Scope
 import toothpick.ktp.KTP
-import toothpick.smoothie.lifecycle.closeOnDestroy
 import toothpick.smoothie.viewmodel.closeOnViewModelCleared
 import toothpick.smoothie.viewmodel.installViewModelBinding
 import javax.inject.Inject
@@ -41,7 +40,6 @@ class BusinessDetailsFragment : Fragment() {
                 scope.installViewModelBinding<BusinessDetailsViewModel>(this)
                     .closeOnViewModelCleared(this)
             }
-            .closeOnDestroy(this)
             .inject(this)
 
         viewModel.viewState.observe(viewLifecycleOwner, Observer {
