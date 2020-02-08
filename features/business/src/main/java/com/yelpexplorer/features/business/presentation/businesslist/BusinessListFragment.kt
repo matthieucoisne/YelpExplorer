@@ -20,7 +20,6 @@ import com.yelpexplorer.libraries.core.utils.EventObserver
 import com.yelpexplorer.libraries.core.utils.Router
 import toothpick.Scope
 import toothpick.ktp.KTP
-import toothpick.smoothie.lifecycle.closeOnDestroy
 import toothpick.smoothie.viewmodel.closeOnViewModelCleared
 import toothpick.smoothie.viewmodel.installViewModelBinding
 import javax.inject.Inject
@@ -42,7 +41,6 @@ class BusinessListFragment : Fragment() {
                 scope.installViewModelBinding<BusinessListViewModel>(this)
                     .closeOnViewModelCleared(this)
             }
-            .closeOnDestroy(this)
             .inject(this)
 
         viewModel.viewAction.observe(viewLifecycleOwner, EventObserver {
