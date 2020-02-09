@@ -24,13 +24,15 @@ import javax.inject.Inject
 
 class BusinessDetailsFragment : Fragment() {
 
-    private lateinit var binding: FragmentBusinessDetailsBinding
+    private var _binding: FragmentBusinessDetailsBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var openingHoursTextViews: List<TextView>
 
     @Inject lateinit var viewModel: BusinessDetailsViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = FragmentBusinessDetailsBinding.inflate(inflater, container, false)
+        _binding = FragmentBusinessDetailsBinding.inflate(inflater, container, false)
         binding.apply {
             openingHoursTextViews = listOf(tvMondayHours, tvTuesdayHours, tvWednesdayHours, tvThursdayHours, tvFridayHours, tvSaturdayHours, tvSundayHours)
         }
@@ -50,6 +52,11 @@ class BusinessDetailsFragment : Fragment() {
         viewModel.setBusinessId(businessId)
 
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 
     private fun render(viewState: BusinessDetailsViewModel.ViewState) {

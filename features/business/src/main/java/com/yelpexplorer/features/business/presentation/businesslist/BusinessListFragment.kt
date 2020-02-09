@@ -26,13 +26,15 @@ import javax.inject.Inject
 
 class BusinessListFragment : Fragment() {
 
+    private var _binding: FragmentBusinessListBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var adapter: BusinessListAdapter
-    private lateinit var binding: FragmentBusinessListBinding
 
     @Inject lateinit var viewModel: BusinessListViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = FragmentBusinessListBinding.inflate(inflater)
+        _binding = FragmentBusinessListBinding.inflate(inflater)
 
         setHasOptionsMenu(true)
 
@@ -59,6 +61,11 @@ class BusinessListFragment : Fragment() {
         binding.rvBusinessList.adapter = adapter
 
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
