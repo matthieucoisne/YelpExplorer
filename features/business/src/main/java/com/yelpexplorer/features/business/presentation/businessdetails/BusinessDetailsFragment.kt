@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -27,15 +26,10 @@ class BusinessDetailsFragment : Fragment() {
     private var _binding: FragmentBusinessDetailsBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var openingHoursTextViews: List<TextView>
-
     @Inject lateinit var viewModel: BusinessDetailsViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentBusinessDetailsBinding.inflate(inflater, container, false)
-        binding.apply {
-            openingHoursTextViews = listOf(tvMondayHours, tvTuesdayHours, tvWednesdayHours, tvThursdayHours, tvFridayHours, tvSaturdayHours, tvSundayHours)
-        }
 
         KTP.openScopes(ApplicationScope::class)
             .openSubScope(BusinessDetailsViewModel::class) { scope: Scope ->
@@ -94,13 +88,14 @@ class BusinessDetailsFragment : Fragment() {
             tvCategories.text = uiModel.categories
             tvAddress.text = uiModel.address
 
-            layoutOpeningHours.isVisible = true
+            val openingHoursTextViews = listOf(tvMondayHours, tvTuesdayHours, tvWednesdayHours, tvThursdayHours, tvFridayHours, tvSaturdayHours, tvSundayHours)
             openingHoursTextViews.forEachIndexed { i, tv ->
                 tv.text = uiModel.openingHours[i] ?: getString(R.string.closed)
             }
+            layoutOpeningHours.isVisible = true
 
-            layoutReviews.isVisible = true
             rvReviews.adapter = BusinessDetailsReviewListAdapter(uiModel.reviews)
+            layoutReviews.isVisible = true
         }
     }
 
