@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -24,16 +23,13 @@ import javax.inject.Inject
 
 class BusinessDetailsFragment : Fragment() {
 
-    private lateinit var binding: FragmentBusinessDetailsBinding
-    private lateinit var openingHoursTextViews: List<TextView>
+    private var _binding: FragmentBusinessDetailsBinding? = null
+    private val binding get() = _binding!!
 
     @Inject lateinit var viewModel: BusinessDetailsViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = FragmentBusinessDetailsBinding.inflate(inflater, container, false)
-        binding.apply {
-            openingHoursTextViews = listOf(tvMondayHours, tvTuesdayHours, tvWednesdayHours, tvThursdayHours, tvFridayHours, tvSaturdayHours, tvSundayHours)
-        }
+        _binding = FragmentBusinessDetailsBinding.inflate(inflater, container, false)
 
         KTP.openScopes(ApplicationScope::class)
             .openSubScope(BusinessDetailsViewModel::class) { scope: Scope ->
@@ -50,6 +46,11 @@ class BusinessDetailsFragment : Fragment() {
         viewModel.setBusinessId(businessId)
 
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 
     private fun render(viewState: BusinessDetailsViewModel.ViewState) {
@@ -87,13 +88,14 @@ class BusinessDetailsFragment : Fragment() {
             tvCategories.text = uiModel.categories
             tvAddress.text = uiModel.address
 
-            layoutOpeningHours.isVisible = true
+            val openingHoursTextViews = listOf(tvMondayHours, tvTuesdayHours, tvWednesdayHours, tvThursdayHours, tvFridayHours, tvSaturdayHours, tvSundayHours)
             openingHoursTextViews.forEachIndexed { i, tv ->
                 tv.text = uiModel.openingHours[i] ?: getString(R.string.closed)
             }
+            layoutOpeningHours.isVisible = true
 
-            layoutReviews.isVisible = true
             rvReviews.adapter = BusinessDetailsReviewListAdapter(uiModel.reviews)
+            layoutReviews.isVisible = true
         }
     }
 

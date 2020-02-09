@@ -26,13 +26,13 @@ import javax.inject.Inject
 
 class BusinessListFragment : Fragment() {
 
-    private lateinit var adapter: BusinessListAdapter
-    private lateinit var binding: FragmentBusinessListBinding
+    private var _binding: FragmentBusinessListBinding? = null
+    private val binding get() = _binding!!
 
     @Inject lateinit var viewModel: BusinessListViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = FragmentBusinessListBinding.inflate(inflater)
+        _binding = FragmentBusinessListBinding.inflate(inflater)
 
         setHasOptionsMenu(true)
 
@@ -53,12 +53,16 @@ class BusinessListFragment : Fragment() {
             render(it)
         }
 
-        adapter = BusinessListAdapter {
+        binding.rvBusinessList.adapter = BusinessListAdapter {
             viewModel.onBusinessClicked(it.id)
         }
-        binding.rvBusinessList.adapter = adapter
 
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -87,7 +91,7 @@ class BusinessListFragment : Fragment() {
     }
 
     private fun showBusinessList(uiModel: BusinessListUiModel) {
-        adapter.setData(uiModel.businessList)
+        (binding.rvBusinessList.adapter as BusinessListAdapter).setData(uiModel.businessList)
     }
 
     private fun navigateToDetails(businessId: String) {
