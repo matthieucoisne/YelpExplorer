@@ -29,8 +29,6 @@ class BusinessListFragment : Fragment() {
     private var _binding: FragmentBusinessListBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var adapter: BusinessListAdapter
-
     @Inject lateinit var viewModel: BusinessListViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -55,10 +53,9 @@ class BusinessListFragment : Fragment() {
             render(it)
         }
 
-        adapter = BusinessListAdapter {
+        binding.rvBusinessList.adapter = BusinessListAdapter {
             viewModel.onBusinessClicked(it.id)
         }
-        binding.rvBusinessList.adapter = adapter
 
         return binding.root
     }
@@ -94,7 +91,7 @@ class BusinessListFragment : Fragment() {
     }
 
     private fun showBusinessList(uiModel: BusinessListUiModel) {
-        adapter.setData(uiModel.businessList)
+        (binding.rvBusinessList.adapter as BusinessListAdapter).setData(uiModel.businessList)
     }
 
     private fun navigateToDetails(businessId: String) {
