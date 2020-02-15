@@ -1,9 +1,12 @@
-name: Android CI
+name: build
 
-on: [pull_request]
+on:
+  push:
+    branches:
+      - master
 
 jobs:
-  assembleDevDebug:
+  assembleDebug:
 
     runs-on: ubuntu-latest
 
