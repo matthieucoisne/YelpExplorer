@@ -95,10 +95,14 @@ class BusinessListFragment : Fragment() {
     }
 
     private fun navigateToDetails(businessId: String) {
-        findNavController().navigate(
-            R.id.action_businessListFragment_to_businessDetailsFragment,
-            bundleOf(Const.KEY_BUSINESS_ID to businessId)
-        )
+        // https://issuetracker.google.com/issues/143280818
+        val navController = findNavController()
+        if (navController.currentDestination?.id == R.id.businessListFragment) {
+            navController.navigate(
+                R.id.action_businessListFragment_to_businessDetailsFragment,
+                bundleOf(Const.KEY_BUSINESS_ID to businessId)
+            )
+        }
     }
 
     private fun navigateToSettings() {
