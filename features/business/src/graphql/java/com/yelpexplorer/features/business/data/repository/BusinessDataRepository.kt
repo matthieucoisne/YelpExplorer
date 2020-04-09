@@ -8,14 +8,10 @@ import com.yelpexplorer.features.business.domain.model.Business
 import com.yelpexplorer.features.business.domain.repository.BusinessRepository
 import com.yelpexplorer.features.business.graphql.BusinessDetailsQuery
 import com.yelpexplorer.features.business.graphql.BusinessListQuery
-import com.yelpexplorer.libraries.core.injection.scope.ApplicationScope
 import com.yelpexplorer.libraries.core.utils.Resource
 import kotlinx.coroutines.flow.flow
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@ApplicationScope @Singleton
-class GraphQLBusinessRepository @Inject constructor(
+class BusinessDataRepository(
     private val apolloClient: ApolloClient
 ) : BusinessRepository {
 

@@ -6,9 +6,8 @@ import com.yelpexplorer.libraries.core.utils.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combineTransform
 import kotlinx.coroutines.flow.distinctUntilChanged
-import javax.inject.Inject
 
-class GetBusinessDetailsUseCase @Inject constructor(
+class GetBusinessDetailsUseCase(
     private val businessRepository: BusinessRepository
 ) {
 

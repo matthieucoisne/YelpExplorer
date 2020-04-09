@@ -113,12 +113,10 @@ dependencies {
     kapt Dependencies.androidx_room_compiler
     androidTestImplementation Dependencies.androidx_room_testing
 
-    // TOOTHPICK
-    implementation Dependencies.toothpick
-    implementation Dependencies.toothpick_smoothie_androidx
-    implementation Dependencies.toothpick_smoothie_lifecycle
-    implementation Dependencies.toothpick_smoothie_lifecycle_viewmodel
-    kapt Dependencies.toothpick_compiler
+    // KOIN
+    implementation Dependencies.koin
+    implementation Dependencies.koin_androidx_viewmodel
+    implementation Dependencies.koin_androidx_scope
 
     // GRAPHQL
     implementation Dependencies.graphql

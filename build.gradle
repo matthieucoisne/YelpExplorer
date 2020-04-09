@@ -76,7 +76,7 @@ subprojects {
                 }
 
                 viewBinding {
-                    enabled = true
+                    enabled true
                 }
             }
         }
