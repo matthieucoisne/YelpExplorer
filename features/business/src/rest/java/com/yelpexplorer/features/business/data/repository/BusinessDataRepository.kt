@@ -5,14 +5,10 @@ import com.yelpexplorer.features.business.data.remote.BusinessApi
 import com.yelpexplorer.features.business.domain.model.Business
 import com.yelpexplorer.features.business.domain.model.Review
 import com.yelpexplorer.features.business.domain.repository.BusinessRepository
-import com.yelpexplorer.libraries.core.injection.scope.ApplicationScope
 import com.yelpexplorer.libraries.core.utils.Resource
 import kotlinx.coroutines.flow.flow
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@ApplicationScope @Singleton
-class RestBusinessRepository @Inject constructor(
+class BusinessDataRepository(
     private val api: BusinessApi
 ) : BusinessRepository {
 

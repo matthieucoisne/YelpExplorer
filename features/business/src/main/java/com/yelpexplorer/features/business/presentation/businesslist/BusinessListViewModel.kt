@@ -14,11 +14,10 @@ import com.yelpexplorer.features.business.domain.usecase.GetBusinessListUseCase
 import com.yelpexplorer.libraries.core.utils.Event
 import com.yelpexplorer.libraries.core.utils.Resource
 import kotlinx.coroutines.Dispatchers
-import javax.inject.Inject
 
-class BusinessListViewModel : ViewModel() {
-
-    @Inject lateinit var getBusinessListUseCase: GetBusinessListUseCase
+class BusinessListViewModel(
+    private val getBusinessListUseCase: GetBusinessListUseCase
+) : ViewModel() {
 
     sealed class ViewAction {
         data class NavigateToDetails(val businessId: String) : ViewAction()

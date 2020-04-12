@@ -8,7 +8,7 @@ object Config {
 }
 
 object Versions {
-    val gradle_plugin_android           = "4.0.0-alpha09"
+    val gradle_plugin_android           = "4.1.0-alpha05"
     val gradle_plugin_google_services   = "4.3.3"
     val gradle_plugin_fabric            = "1.31.2"
 
@@ -31,14 +31,14 @@ object Versions {
     val annotation                      = "1.1.0"
     val crashlytics                     = "2.10.1"
     val glide                           = "4.10.0"
-    val graphql                         = "1.2.2"
+    val graphql                         = "1.4.4"
     val gson                            = "2.8.6"
+    val koin                            = "2.1.5"
     val leakcanary                      = "2.1"
     val okio                            = "2.2.2"
     val okhttp                          = "4.3.0"
     val retrofit                        = "2.7.1"
     val timber                          = "4.7.1"
-    val toothpick                       = "3.1.0"
 
     // TESTING
     val androidx_test                   = "1.3.0-alpha03"
@@ -86,13 +86,11 @@ object Dependencies {
     val androidx_room_compiler = "androidx.room:room-compiler:${Versions.androidx_room}"
     val androidx_room_testing = "androidx.room:room-testing:${Versions.androidx_room}"
 
-    // TOOTHPICK
-    val toothpick = "com.github.stephanenicolas.toothpick:ktp:${Versions.toothpick}"
-    val toothpick_smoothie_androidx = "com.github.stephanenicolas.toothpick:smoothie-androidx:${Versions.toothpick}"
-    val toothpick_smoothie_lifecycle = "com.github.stephanenicolas.toothpick:smoothie-lifecycle-ktp:${Versions.toothpick}"
-    val toothpick_smoothie_lifecycle_viewmodel = "com.github.stephanenicolas.toothpick:smoothie-lifecycle-viewmodel-ktp:${Versions.toothpick}"
-    val toothpick_compiler = "com.github.stephanenicolas.toothpick:toothpick-compiler:${Versions.toothpick}"
-    val toothpick_testing = "com.github.stephanenicolas.toothpick:toothpick-testing-junit5:${Versions.toothpick}"
+    // KOIN
+    val koin = "org.koin:koin-core:${Versions.koin}"
+    val koin_androidx_viewmodel = "org.koin:koin-androidx-viewmodel:${Versions.koin}"
+    val koin_androidx_scope = "org.koin:koin-androidx-scope:${Versions.koin}"
+    val koin_test = "org.koin:koin-test:${Versions.koin}"
 
     // GRAPHQL
     val graphql = "com.apollographql.apollo:apollo-runtime:${Versions.graphql}"

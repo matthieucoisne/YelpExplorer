@@ -6,56 +6,33 @@ import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import toothpick.ProvidesSingletonInScope
-import toothpick.config.Module
-import toothpick.ktp.binding.bind
-import javax.inject.Inject
-import javax.inject.Provider
-import javax.inject.Singleton
+import org.koin.dsl.module
 
-class AppModule : Module() {
-    init {
-        bind<Cache>().toProvider(OkHttpCacheProvider::class)
-        bind<OkHttpClient>().toProvider(OkHttpClientProvider::class)
-    }
+val appModule = module {
+    single { provideOkHttpCache(get()) }
+    single { provideOkHttpClient(get()) }
 }
 
-@Singleton
-@ProvidesSingletonInScope
-class OkHttpCacheProvider @Inject constructor(
-    private val application: Application
-) : Provider<Cache> {
-
-    override fun get(): Cache {
-        val cacheSize = 10 * 1024 * 1024 // 10 MB
-        return Cache(application.cacheDir, cacheSize.toLong())
-    }
+fun provideOkHttpCache(application: Application): Cache {
+    val cacheSize = 10 * 1024 * 1024 // 10 MB
+    return Cache(application.cacheDir, cacheSize.toLong())
 }
 
-@Singleton
-@ProvidesSingletonInScope
-class OkHttpClientProvider @Inject constructor(
-    private val cache: Cache
-) : Provider<OkHttpClient> {
-
-    override fun get(): OkHttpClient {
-        val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-
-        val headerInterceptor = Interceptor { chain ->
-            val original = chain.request()
-            val builder = original.newBuilder().method(original.method, original.body)
-            builder.addHeader(
-                name = "Authorization",
-                value = "Bearer ${Const.API_KEY}"
-            )
-            chain.proceed(builder.build())
-        }
-
-        return OkHttpClient.Builder()
-            .cache(cache)
-            .addInterceptor(loggingInterceptor)
-            .addInterceptor(headerInterceptor)
-            .build()
+fun provideOkHttpClient(cache: Cache): OkHttpClient {
+    val loggingInterceptor = HttpLoggingInterceptor()
+    loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+    val headerInterceptor = Interceptor { chain ->
+        val original = chain.request()
+        val builder = original.newBuilder().method(original.method, original.body)
+        builder.addHeader(
+            name = "Authorization",
+            value = "Bearer ${Const.API_KEY}"
+        )
+        chain.proceed(builder.build())
     }
+    return OkHttpClient.Builder()
+        .cache(cache)
+        .addInterceptor(loggingInterceptor)
+        .addInterceptor(headerInterceptor)
+        .build()
 }

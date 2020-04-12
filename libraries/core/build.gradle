@@ -39,13 +39,6 @@ dependencies {
     kapt Dependencies.androidx_room_compiler
     androidTestImplementation Dependencies.androidx_room_testing
 
-    // TOOTHPICK
-    implementation Dependencies.toothpick
-    implementation Dependencies.toothpick_smoothie_androidx
-    implementation Dependencies.toothpick_smoothie_lifecycle
-    implementation Dependencies.toothpick_smoothie_lifecycle_viewmodel
-    kapt Dependencies.toothpick_compiler
-
     // GSON
     implementation Dependencies.gson
 

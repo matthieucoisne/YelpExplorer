@@ -34,6 +34,7 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun render() {
-        binding.tvVersion.text = String.format(getString(R.string.version), BuildConfig.VERSION_NAME)
+        // TODO
+        // binding.tvVersion.text = String.format(getString(R.string.version), BuildConfig.VERSION_NAME)
     }
 }

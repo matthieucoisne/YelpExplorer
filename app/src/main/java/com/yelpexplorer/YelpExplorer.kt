@@ -1,36 +1,28 @@
 package com.yelpexplorer
 
 import android.app.Application
-import com.yelpexplorer.features.business.domain.injection.BusinessModule
-import com.yelpexplorer.injection.AppModule
-import com.yelpexplorer.injection.FlavorModule
-import com.yelpexplorer.libraries.core.injection.scope.ApplicationScope
+import com.yelpexplorer.features.business.domain.injection.businessModule
+import com.yelpexplorer.injection.appFlavorModule
+import com.yelpexplorer.injection.appModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 import timber.log.Timber
 import timber.log.Timber.DebugTree
-import toothpick.Scope
-import toothpick.ktp.KTP
-import toothpick.smoothie.module.SmoothieApplicationModule
 
 class YelpExplorer : Application() {
-
-    private lateinit var scope: Scope
 
     override fun onCreate() {
         super.onCreate()
 
+        val appModules = listOf(appModule, appFlavorModule)
+        val featureModules = listOf(businessModule)
+
+        startKoin {
+            androidContext(this@YelpExplorer)
+            modules(appModules)
+            modules(featureModules)
+        }
+
         Timber.plant(DebugTree())
-
-        scope = KTP.openScope(ApplicationScope::class)
-            .installModules(
-                SmoothieApplicationModule(this),
-                AppModule(),
-                FlavorModule(),
-                BusinessModule()
-            )
-    }
-
-    override fun onTrimMemory(level: Int) {
-        super.onTrimMemory(level)
-        scope.release()
     }
 }

@@ -15,33 +15,21 @@ import androidx.navigation.fragment.findNavController
 import com.yelpexplorer.features.business.R
 import com.yelpexplorer.features.business.databinding.FragmentBusinessListBinding
 import com.yelpexplorer.libraries.core.data.local.Const
-import com.yelpexplorer.libraries.core.injection.scope.ApplicationScope
 import com.yelpexplorer.libraries.core.utils.EventObserver
 import com.yelpexplorer.libraries.core.utils.Router
-import toothpick.Scope
-import toothpick.ktp.KTP
-import toothpick.smoothie.viewmodel.closeOnViewModelCleared
-import toothpick.smoothie.viewmodel.installViewModelBinding
-import javax.inject.Inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class BusinessListFragment : Fragment() {
 
     private var _binding: FragmentBusinessListBinding? = null
     private val binding get() = _binding!!
 
-    @Inject lateinit var viewModel: BusinessListViewModel
+    private val viewModel: BusinessListViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentBusinessListBinding.inflate(inflater)
 
         setHasOptionsMenu(true)
-
-        KTP.openScopes(ApplicationScope::class)
-            .openSubScope(BusinessListViewModel::class) { scope: Scope ->
-                scope.installViewModelBinding<BusinessListViewModel>(this)
-                    .closeOnViewModelCleared(this)
-            }
-            .inject(this)
 
         viewModel.viewAction.observe(viewLifecycleOwner, EventObserver {
             when (it) {

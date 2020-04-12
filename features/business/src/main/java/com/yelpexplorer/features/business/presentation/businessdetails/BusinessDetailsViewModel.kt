@@ -14,11 +14,10 @@ import com.yelpexplorer.features.business.domain.model.Business
 import com.yelpexplorer.features.business.domain.usecase.GetBusinessDetailsUseCase
 import com.yelpexplorer.libraries.core.utils.Resource
 import kotlinx.coroutines.Dispatchers
-import javax.inject.Inject
 
-class BusinessDetailsViewModel : ViewModel() {
-
-    @Inject lateinit var getBusinessDetailsUseCase: GetBusinessDetailsUseCase
+class BusinessDetailsViewModel(
+    private val getBusinessDetailsUseCase: GetBusinessDetailsUseCase
+) : ViewModel() {
 
     sealed class ViewState {
         data class ShowLoading(val businessDetails: BusinessDetailsUiModel?) : ViewState()
