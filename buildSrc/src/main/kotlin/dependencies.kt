@@ -8,17 +8,17 @@ object Config {
 }
 
 object Versions {
-    val gradle_plugin_android           = "4.1.0-alpha05"
+    val gradle_plugin_android           = "4.2.0-alpha07"
     val gradle_plugin_google_services   = "4.3.3"
     val gradle_plugin_fabric            = "1.31.2"
 
     val java                            = JavaVersion.VERSION_1_8
-    val kotlin                          = "1.3.61"
-    val kotlin_coroutines               = "1.3.3"
+    val kotlin                          = "1.4.0"
+    val kotlin_coroutines               = "1.3.9"
 
     val android_material                = "1.2.0-alpha03"
     val androidx                        = "1.0.0"
-    val androidx_activity               = "1.1.0-rc03"
+    val androidx_activity               = "1.2.0-alpha07"
     val androidx_appCompat              = "1.2.0-alpha01"
     val androidx_constraintLayout       = "1.1.3"
     val androidx_core                   = "1.2.0-rc01"
@@ -27,17 +27,17 @@ object Versions {
     val androidx_lifecycle_savedState   = "1.0.0-rc03"
     val androidx_navigation             = "2.3.0-alpha01"
     val androidx_recyclerview           = "1.2.0-alpha01"
-    val androidx_room                   = "2.2.3"
+    val androidx_room                   = "2.2.5"
     val annotation                      = "1.1.0"
     val crashlytics                     = "2.10.1"
-    val glide                           = "4.10.0"
-    val graphql                         = "1.4.4"
+    val glide                           = "4.11.0"
+    val graphql                         = "2.3.0"
     val gson                            = "2.8.6"
-    val koin                            = "2.1.5"
-    val leakcanary                      = "2.1"
-    val okio                            = "2.2.2"
-    val okhttp                          = "4.3.0"
-    val retrofit                        = "2.7.1"
+    val koin                            = "2.1.6"
+    val leakcanary                      = "2.4"
+    val okio                            = "2.7.0"
+    val okhttp                          = "4.8.1"
+    val retrofit                        = "2.9.0"
     val timber                          = "4.7.1"
 
     // TESTING
