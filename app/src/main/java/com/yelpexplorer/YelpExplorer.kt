@@ -1,9 +1,8 @@
 package com.yelpexplorer
 
 import android.app.Application
-import com.yelpexplorer.features.business.domain.injection.businessModule
-import com.yelpexplorer.injection.appFlavorModule
-import com.yelpexplorer.injection.appModule
+import com.yelpexplorer.core.injection.appModule
+import com.yelpexplorer.core.injection.businessModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import timber.log.Timber
@@ -14,7 +13,7 @@ class YelpExplorer : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        val appModules = listOf(appModule, appFlavorModule)
+        val appModules = listOf(appModule)
         val featureModules = listOf(businessModule)
 
         startKoin {
