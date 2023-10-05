@@ -1,20 +1,37 @@
 # YelpExplorer
 
-[![build](https://github.com/matthieucoisne/YelpExplorer/workflows/build/badge.svg)](https://github.com/matthieucoisne/YelpExplorer/blob/master/.github/workflows/build.yml)
-[![Kotlin Version](https://img.shields.io/badge/Kotlin-1.3.61-blue.svg)](https://kotlinlang.org)
-[![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21)
+[![build](https://github.com/matthieucoisne/YelpExplorer/workflows/build/badge.svg)](https://github.com/matthieucoisne/YelpExplorer/blob/main/.github/workflows/build.yml)
+[![Kotlin Version](https://img.shields.io/badge/Kotlin-1.8.10-blue.svg)](https://kotlinlang.org)
+[![API](https://img.shields.io/badge/API-27%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=27)
 
 ## Project Description
 
-YelpExplorer is an Android application that shows a list of business, their details and latest reviews using [Yelp](https://www.yelp.com/)'s API.
+YelpExplorer is a multiplatform project that shows a list of businesses, their details and latest reviews using
+[Yelp](https://www.yelp.com/)'s API.
 
-The goal of this project is to demonstrate the differences between using a REST API versus a GraphQL API in a modern Android application, that has a modular, scalable, maintainable and testable architecture.
+I originally created this project to learn about GraphQL but since Yelp is also serving its data with a REST API,
+I thought it would be a great opportunity to showcase the power of Clean Architecture when it comes to being able
+to swap one data layer for another without having to modify the domain and presentation layers.
+
+I then thought it would be a great experience to port this Android project to Flutter and ReactNative to learn more
+about all the different technologies that exist to build multiplatform applications.
+
+This project is available in:<br/>
+[Compose/Kotlin](https://github.com/matthieucoisne/YelpExplorer)<br/>
+[Flutter/Dart](https://github.com/matthieucoisne/YelpExplorer-Flutter)<br/>
+[ReactNative/TypeScript](https://github.com/matthieucoisne/YelpExplorer-ReactNative)<br/>
+
+### Screenshots
+
+| Business List | Business Details |
+|:-------------:|:----------------:|
+|![YelpExplorer - Business List](https://github.com/matthieucoisne/YelpExplorer/blob/main/media/YelpExplorer-KMP-BusinessList.png) | ![YelpExplorer - Business Details](https://github.com/matthieucoisne/YelpExplorer/blob/main/media/YelpExplorer-KMP-BusinessDetails.png)|
 
 ## Project Characteristics
 
 * 100% [Kotlin](https://kotlinlang.org/)
-* Modern architecture (feature modules, Clean Architecture, Model-View-ViewModel)
-* [Android Jetpack](https://developer.android.com/jetpack)
+* Modern architecture (Clean Architecture, Model-View-ViewModel, Dependency Injection)
+* Declarative UI framework using [Jetpack Compose](https://developer.android.com/jetpack/compose)
 * Testing
 * Material design
 * Continuous Integration with GitHub [Actions](https://github.com/matthieucoisne/YelpExplorer/actions)
@@ -24,60 +41,44 @@ The goal of this project is to demonstrate the differences between using a REST 
 
 * Tech Stack
     * [Kotlin](https://kotlinlang.org/)
-    * [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html)
-    * [Flow](https://kotlinlang.org/docs/reference/coroutines/flow.html)
+    * [Coroutines](https://kotlinlang.org/docs/coroutines-overview.html)
+    * [Flow](https://kotlinlang.org/docs/flow.html)
     * [Koin](https://github.com/InsertKoinIO/koin)
-    * [Retrofit](https://square.github.io/retrofit) - Used in the `rest` flavor
-    * [ApolloGraphQL](https://github.com/apollographql/apollo-android) - Used in the `graphql` flavor
+    * [Retrofit](https://square.github.io/retrofit)
+    * [ApolloGraphQL](https://github.com/apollographql/apollo-android)
     * [Jetpack](https://developer.android.com/jetpack)
-        * [Navigation](https://developer.android.com/topic/libraries/architecture/navigation/)
-        * [LiveData](https://developer.android.com/topic/libraries/architecture/livedata)
-        * [Lifecycle](https://developer.android.com/topic/libraries/architecture/lifecycle)
+        * [Navigation](https://developer.android.com/guide/navigation)
         * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
-    * [Glide](https://github.com/bumptech/glide)
-    * [and more...](https://github.com/matthieucoisne/YelpExplorer/blob/master/buildSrc/src/main/kotlin/dependencies.kt)
+        * [Compose](https://developer.android.com/jetpack/compose)
+    * [Coil](https://github.com/coil-kt/coil)
+    * [and more...](https://github.com/matthieucoisne/YelpExplorer/blob/main/app/build.gradle.kts)
 * Architecture
-    * Clean Architecture (at module level)
+    * Clean Architecture
     * MVVM
-    * [Android Architecture components](https://developer.android.com/topic/libraries/architecture)
+    * [Modern Android Architecture](https://developer.android.com/topic/architecture#recommended-app-arch)
 
 ## Development Setup
 
 ### Yelp API Key
 
-If you want to run this project on an Android device or emulator, you need to obtain your own API key from Yelp and provide it to the app.
+If you want to run this project on an device or an emulator, you need to obtain your own API key from Yelp and
+provide it to the app.
 
-1. Request your key: https://www.yelp.com/developers/documentation/v3/authentication
-2. Update [Const.kt](https://github.com/matthieucoisne/YelpExplorer/blob/master/libraries/core/src/main/java/com/yelpexplorer/libraries/core/data/local/Const.kt) with your key
+1. Request your API key: [https://www.yelp.com/developers/documentation/v3/authentication](https://www.yelp.com/developers/documentation/v3/authentication)<br/>
+2. Update [Const.kt](https://github.com/matthieucoisne/YelpExplorer/blob/main/app/src/main/java/com/yelpexplorer/core/utils/Const.kt) with your key
 
-### Flavors: Switching APIs
+### REST vs GraphQL
 
-This project allows you to use either the GraphQL API or the REST API by switching between [product flavors](https://developer.android.com/studio/build/build-variants#product-flavors).
-
-Because this project implements Clean Architecture:
-
-* The `data` layer is the one that has the most changes between the 2 flavors
-* The `domain` layer needs to have different implementations of `GetBusinessDetailsUseCase`:
-  * Using [REST](https://github.com/matthieucoisne/YelpExplorer/blob/master/features/business/src/rest/java/com/yelpexplorer/features/business/domain/usecase/GetBusinessDetailsUseCase.kt), we have to merge 2 api call results: `getBusinessDetails()` and `getBusinessReviews()`
-  * Using [GraphQL](https://github.com/matthieucoisne/YelpExplorer/blob/master/features/business/src/graphql/java/com/yelpexplorer/features/business/domain/usecase/GetBusinessDetailsUseCase.kt), we have all the data we need with a single `BusinessDetails` query
-* The `presentation` layer remains the same
-
-Specific GraphQL files used by the `graphql` flavor:\
-https://github.com/matthieucoisne/YelpExplorer/tree/master/features/business/src/graphql
-\
-Specific REST files used by the `rest` flavor:\
-https://github.com/matthieucoisne/YelpExplorer/tree/master/features/business/src/rest
-\
-Common files used by both flavors:\
-https://github.com/matthieucoisne/YelpExplorer/tree/master/features/business/src/main
+This project allows you to either use the GraphQL API or the REST API to retrieve data.<br/>
+To switch between one or the other, you can change the value of `DATASOURCE` in [Const.kt](https://github.com/matthieucoisne/YelpExplorer/blob/main/app/src/main/java/com/yelpexplorer/core/utils/Const.kt).
 
 ## Author
 
-[![Follow me](https://img.shields.io/twitter/follow/matthieucoisne?style=social)](https://twitter.com/matthieucoisne)
+[![Follow me](https://img.shields.io/twitter/follow/matthieucoisne?style=social)](https://x.com/matthieucoisne)
 
 ## License
 ```
-Copyright 2019 Matthieu Coisne
+Copyright 2019-Present Matthieu Coisne
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
