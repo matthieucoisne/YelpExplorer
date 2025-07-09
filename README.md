@@ -1,12 +1,12 @@
 # YelpExplorer
 
 [![build](https://github.com/matthieucoisne/YelpExplorer/workflows/build/badge.svg)](https://github.com/matthieucoisne/YelpExplorer/blob/main/.github/workflows/build.yml)
-[![Kotlin Version](https://img.shields.io/badge/Kotlin-1.8.10-blue.svg)](https://kotlinlang.org)
-[![API](https://img.shields.io/badge/API-27%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=27)
+[![Kotlin Version](https://img.shields.io/badge/Kotlin-2.1.20-blue.svg)](https://kotlinlang.org)
+[![API](https://img.shields.io/badge/API-35%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=35)
 
 ## Project Description
 
-YelpExplorer is a multiplatform project that shows a list of businesses, their details and latest reviews using
+YelpExplorer is a Compose MultiPlatform project that shows a list of businesses, their details and latest reviews using
 [Yelp](https://www.yelp.com/)'s API.
 
 I originally created this project to learn about GraphQL but since Yelp is also serving its data with a REST API,
@@ -29,7 +29,7 @@ This project is available in:<br/>
 
 ## Project Characteristics
 
-* 100% [Kotlin](https://kotlinlang.org/)
+* 100% [Kotlin](https://kotlinlang.org/) // TODO
 * Modern architecture (Clean Architecture, Model-View-ViewModel, Dependency Injection)
 * Declarative UI framework using [Jetpack Compose](https://developer.android.com/jetpack/compose)
 * Testing
